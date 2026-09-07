@@ -1,0 +1,36 @@
+.inicio {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.inicio-contenido {
+  max-width: 420px;
+  padding: 2rem;
+  text-align: left;
+}
+
+.eyebrow {
+  color: var(--color-acento);
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.inicio-contenido h1 {
+  font-size: 3.5rem;
+  margin-top: 0.5rem;
+  line-height: 1;
+}
+
+.subtitulo {
+  color: var(--color-texto-secundario);
+  font-size: 1.1rem;
+  margin-top: 1rem;
+  margin-bottom: 2.5rem;
+}
+
+.acciones {
+  display: flex;
+  gap: 1rem;
+}

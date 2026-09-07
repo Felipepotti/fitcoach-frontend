@@ -1,0 +1,58 @@
+<div class="panel">
+  <header class="panel-header">
+    <div>
+      <span class="eyebrow">Panel de alumno</span>
+      <h1>{{ nombreUsuario }}</h1>
+    </div>
+    <button class="btn-secundario" (click)="cerrarSesion()">Cerrar sesión</button>
+  </header>
+
+  <section class="seccion">
+    <h2>Tus rutinas</h2>
+
+    <p class="texto-muted" *ngIf="cargando">Cargando rutinas...</p>
+
+    <article *ngFor="let rutina of rutinas" class="rutina">
+      <h3>{{ rutina.nombre_rutina }}</h3>
+
+      <ul class="lista-ejercicios">
+        <li *ngFor="let ejercicio of rutina.ejercicios">
+          <span class="nombre-ejercicio">{{ ejercicio.nombre_ejercicio }}</span>
+          <span class="detalle-ejercicio">{{ ejercicio.grupo_muscular }}</span>
+          <span class="metricas">{{ ejercicio.series }} × {{ ejercicio.repeticiones }}</span>
+        </li>
+      </ul>
+
+      <div class="registrar">
+        <input
+          type="text"
+          placeholder="¿Cómo te fue? (opcional)"
+          [(ngModel)]="comentarios[rutina.id]"
+          [name]="'comentario_' + rutina.id"
+        />
+        <button class="btn-primario" (click)="marcarCompletada(rutina.id)">Completar</button>
+      </div>
+      <p class="confirmacion" *ngIf="mensajeExito[rutina.id]">{{ mensajeExito[rutina.id] }}</p>
+    </article>
+
+    <p class="texto-muted" *ngIf="!cargando && rutinas.length === 0">
+      Aún no tienes rutinas asignadas. Tu entrenador te avisará cuando publique la primera.
+    </p>
+  </section>
+
+  <section class="seccion">
+    <h2>Historial</h2>
+
+    <ul class="historial" *ngIf="historial.length > 0">
+      <li *ngFor="let registro of historial">
+        <div>
+          <strong>{{ registro.nombre_rutina }}</strong>
+          <span class="fecha">{{ registro.fecha_completado | date: 'd MMM, HH:mm' }}</span>
+        </div>
+        <p class="comentario" *ngIf="registro.comentario">{{ registro.comentario }}</p>
+      </li>
+    </ul>
+
+    <p class="texto-muted" *ngIf="historial.length === 0">Todavía no registras entrenamientos.</p>
+  </section>
+</div>

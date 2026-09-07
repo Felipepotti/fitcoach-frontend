@@ -1,0 +1,29 @@
+<div class="auth">
+  <div class="auth-card">
+    <span class="eyebrow">Empieza hoy</span>
+    <h1>Crear cuenta</h1>
+
+    <form (ngSubmit)="onSubmit()">
+      <label>Nombre</label>
+      <input type="text" [(ngModel)]="nombre" name="nombre" required />
+
+      <label>Email</label>
+      <input type="email" [(ngModel)]="email" name="email" required />
+
+      <label>Contraseña</label>
+      <input type="password" [(ngModel)]="password" name="password" required minlength="6" />
+
+      <label>Tipo de cuenta</label>
+      <select [(ngModel)]="rol" name="rol">
+        <option value="alumno">Alumno</option>
+        <option value="entrenador">Entrenador</option>
+      </select>
+
+      <p class="error" *ngIf="errorMensaje">{{ errorMensaje }}</p>
+
+      <button type="submit" class="btn-primario">Registrarme</button>
+    </form>
+
+    <p class="enlace-secundario">¿Ya tienes cuenta? <a routerLink="/login">Inicia sesión</a></p>
+  </div>
+</div>

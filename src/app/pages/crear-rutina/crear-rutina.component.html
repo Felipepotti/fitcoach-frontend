@@ -1,0 +1,54 @@
+<div class="form-container">
+  <span class="eyebrow">Nueva asignación</span>
+  <h2>Asignar nueva rutina</h2>
+
+  <form (ngSubmit)="onSubmit()">
+    <label>Alumno</label>
+    <select [(ngModel)]="alumnoSeleccionado" name="alumno" required>
+      <option value="" disabled selected>Selecciona un alumno</option>
+      <option *ngFor="let alumno of alumnos" [value]="alumno.id">
+        {{ alumno.nombre }} ({{ alumno.email }})
+      </option>
+    </select>
+
+    <label>Nombre de la rutina</label>
+    <input type="text" [(ngModel)]="nombreRutina" name="nombreRutina" required />
+
+    <h3>Ejercicios</h3>
+
+    <div *ngFor="let ejercicio of ejercicios; let i = index" class="ejercicio-card">
+      <div class="ejercicio-header">
+        <strong>Ejercicio {{ i + 1 }}</strong>
+        <button type="button" class="btn-eliminar" (click)="eliminarEjercicio(i)" *ngIf="ejercicios.length > 1">
+          Eliminar
+        </button>
+      </div>
+
+      <input type="text" placeholder="Nombre del ejercicio" [(ngModel)]="ejercicio.nombre_ejercicio"
+             [name]="'nombre_' + i" required />
+
+      <input type="text" placeholder="Grupo muscular" [(ngModel)]="ejercicio.grupo_muscular"
+             [name]="'grupo_' + i" required />
+
+      <div class="fila">
+        <label>Series
+          <input type="number" [(ngModel)]="ejercicio.series" [name]="'series_' + i" min="1" required />
+        </label>
+        <label>Repeticiones
+          <input type="number" [(ngModel)]="ejercicio.repeticiones" [name]="'repeticiones_' + i" min="1" required />
+        </label>
+        <label>Descanso (seg)
+          <input type="number" [(ngModel)]="ejercicio.descanso_segundos" [name]="'descanso_' + i" min="0" required />
+        </label>
+      </div>
+
+      <textarea placeholder="Notas (opcional)" [(ngModel)]="ejercicio.notas" [name]="'notas_' + i"></textarea>
+    </div>
+
+    <button type="button" class="btn-secundario" (click)="agregarEjercicio()">+ Agregar ejercicio</button>
+    <p class="error" *ngIf="errorMensaje">{{ errorMensaje }}</p>
+    <p class="exito" *ngIf="exitoMensaje">{{ exitoMensaje }}</p>
+
+    <button type="submit" class="btn-primario">Guardar rutina</button>
+  </form>
+</div>

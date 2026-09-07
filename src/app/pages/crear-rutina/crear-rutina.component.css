@@ -1,0 +1,80 @@
+.form-container {
+  max-width: 560px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem 4rem;
+}
+
+.eyebrow {
+  color: var(--color-texto-secundario);
+  font-size: 0.85rem;
+}
+
+.form-container h2 {
+  font-size: 1.75rem;
+  margin: 0.4rem 0 2rem;
+}
+
+.form-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-container label {
+  font-size: 0.85rem;
+  color: var(--color-texto-secundario);
+  margin-top: 0.5rem;
+}
+
+.ejercicio-card {
+  background-color: var(--color-superficie);
+  border-left: 3px solid var(--color-acento);
+  border-radius: var(--radio-borde);
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin: 1rem 0;
+}
+
+.ejercicio-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ejercicio-header strong {
+  color: var(--color-texto-secundario);
+  font-weight: 500;
+  font-size: 0.85rem;
+}
+
+.btn-eliminar {
+  background: transparent;
+  color: var(--color-error);
+  border: none;
+  font-size: 0.85rem;
+  cursor: pointer;
+  padding: 0;
+}
+
+.fila {
+  display: flex;
+  gap: 1rem;
+}
+
+.fila label {
+  flex: 1;
+}
+
+.error {
+  color: var(--color-error);
+}
+
+.exito {
+  color: var(--color-acento);
+}
+
+button[type='submit'] {
+  margin-top: 1.5rem;
+}

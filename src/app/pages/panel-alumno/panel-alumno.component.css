@@ -1,0 +1,128 @@
+.panel {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem 4rem;
+}
+
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 3rem;
+}
+
+.eyebrow {
+  color: var(--color-texto-secundario);
+  font-size: 0.85rem;
+}
+
+.panel-header h1 {
+  font-size: 2rem;
+  margin-top: 0.25rem;
+}
+
+.seccion {
+  margin-bottom: 3rem;
+}
+
+.seccion h2 {
+  font-size: 1.1rem;
+  color: var(--color-texto-secundario);
+  font-weight: 500;
+  margin-bottom: 1.25rem;
+}
+
+.texto-muted {
+  color: var(--color-texto-secundario);
+}
+
+.rutina {
+  background-color: var(--color-superficie);
+  border-left: 3px solid var(--color-acento);
+  border-radius: var(--radio-borde);
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.rutina h3 {
+  font-size: 1.15rem;
+  margin-bottom: 1rem;
+}
+
+.lista-ejercicios {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.25rem;
+}
+
+.lista-ejercicios li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid var(--color-borde);
+  gap: 1rem;
+}
+
+.lista-ejercicios li:last-child {
+  border-bottom: none;
+}
+
+.nombre-ejercicio {
+  flex: 1;
+  font-weight: 500;
+}
+
+.detalle-ejercicio {
+  color: var(--color-texto-secundario);
+  font-size: 0.85rem;
+}
+
+.metricas {
+  font-weight: 700;
+  color: var(--color-acento);
+  font-variant-numeric: tabular-nums;
+}
+
+.registrar {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.registrar input {
+  flex: 1;
+}
+
+.confirmacion {
+  color: var(--color-acento);
+  font-size: 0.85rem;
+  margin-top: 0.5rem;
+}
+
+.historial {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.historial li {
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--color-borde);
+}
+
+.historial li > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.fecha {
+  color: var(--color-texto-secundario);
+  font-size: 0.85rem;
+}
+
+.comentario {
+  color: var(--color-texto-secundario);
+  font-size: 0.9rem;
+  margin-top: 0.35rem;
+}

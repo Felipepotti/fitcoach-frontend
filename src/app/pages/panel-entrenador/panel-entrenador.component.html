@@ -1,0 +1,31 @@
+<div class="panel">
+  <header class="panel-header">
+    <div>
+      <span class="eyebrow">Panel de entrenador</span>
+      <h1>{{ nombreUsuario }}</h1>
+    </div>
+    <button class="btn-secundario" (click)="cerrarSesion()">Cerrar sesión</button>
+  </header>
+
+  <div class="accion-principal">
+    <a routerLink="/entrenador/crear-rutina" class="btn-primario">+ Asignar rutina</a>
+  </div>
+
+  <section class="seccion">
+    <h2>Alumnos</h2>
+
+    <p class="texto-muted" *ngIf="cargando">Cargando alumnos...</p>
+    <p class="error" *ngIf="errorMensaje">{{ errorMensaje }}</p>
+
+    <ul class="lista-alumnos" *ngIf="!cargando && alumnos.length > 0">
+      <li *ngFor="let alumno of alumnos">
+        <span class="nombre">{{ alumno.nombre }}</span>
+        <span class="email">{{ alumno.email }}</span>
+      </li>
+    </ul>
+
+    <p class="texto-muted" *ngIf="!cargando && alumnos.length === 0">
+      Aún no tienes alumnos registrados.
+    </p>
+  </section>
+</div>
