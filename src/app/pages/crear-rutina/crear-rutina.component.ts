@@ -5,11 +5,13 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { RutinasService, Ejercicio } from '../../services/rutinas.service';
+import { extraerMensajeError } from '../../utils/error-utils';
 
 interface Alumno {
   id: string;
   nombre: string;
   email: string;
+  activo?: boolean;
 }
 
 @Component({
@@ -36,7 +38,7 @@ export class CrearRutinaComponent implements OnInit {
 
   ngOnInit(): void {
     this.cargarAlumnos();
-    this.agregarEjercicio(); // empieza con un ejercicio vacío listo para llenar
+    this.agregarEjercicio();
   }
 
   cargarAlumnos(): void {
@@ -46,7 +48,9 @@ export class CrearRutinaComponent implements OnInit {
     this.http
       .get<{ alumnos: Alumno[] }>('http://127.0.0.1:8000/entrenador/mis-alumnos', { headers })
       .subscribe({
-        next: (respuesta) => (this.alumnos = respuesta.alumnos),
+        next: (respuesta) => {
+          this.alumnos = respuesta.alumnos.filter((a) => a.activo !== false);
+        },
         error: () => (this.errorMensaje = 'No se pudieron cargar los alumnos'),
       });
   }
@@ -87,7 +91,7 @@ export class CrearRutinaComponent implements OnInit {
           setTimeout(() => this.router.navigate(['/entrenador']), 1200);
         },
         error: (err) => {
-          this.errorMensaje = err.error?.detail || 'Error al crear la rutina';
+          this.errorMensaje = extraerMensajeError(err);
         },
       });
   }

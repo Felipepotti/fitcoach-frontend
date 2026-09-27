@@ -30,6 +30,10 @@
   text-decoration: none;
 }
 
+.seccion {
+  margin-bottom: 3rem;
+}
+
 .seccion h2 {
   font-size: 1.1rem;
   color: var(--color-texto-secundario);
@@ -45,6 +49,21 @@
   color: var(--color-error);
 }
 
+.confirmacion {
+  color: var(--color-acento);
+  font-size: 0.85rem;
+}
+
+.vincular-form {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.vincular-form input {
+  flex: 1;
+}
+
 .lista-alumnos {
   list-style: none;
   padding: 0;
@@ -54,15 +73,130 @@
 .lista-alumnos li {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
   padding: 1rem 0;
   border-bottom: 1px solid var(--color-borde);
 }
 
 .nombre {
   font-weight: 500;
+  margin-right: 0.6rem;
 }
 
 .email {
   color: var(--color-texto-secundario);
   font-size: 0.9rem;
+}
+
+.estado-badge {
+  margin-left: 0.6rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 0.2rem 0.6rem;
+  border-radius: 3px;
+  background-color: var(--color-texto-secundario);
+  color: #141414;
+}
+
+.estado-badge.activo {
+  background-color: var(--color-acento);
+}
+
+.seccion-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.25rem;
+}
+
+.badge-nuevos {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  background-color: rgba(212, 255, 61, 0.12);
+  border: 1px solid var(--color-acento);
+  color: var(--color-acento);
+  border-radius: var(--radio-borde);
+  padding: 0.3rem 0.7rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.btn-link {
+  background: none;
+  border: none;
+  color: var(--color-texto-secundario);
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: 0.75rem;
+  padding: 0;
+}
+
+.feedback-lista {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.feedback-lista li {
+  position: relative;
+  padding: 1rem;
+  border-bottom: 1px solid var(--color-borde);
+  transition: background-color 0.3s ease;
+}
+
+.feedback-lista li.nuevo {
+  border-left: 3px solid var(--color-acento);
+  background-color: rgba(212, 255, 61, 0.05);
+}
+
+.feedback-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.rutina-nombre {
+  color: var(--color-texto-secundario);
+  font-size: 0.85rem;
+  margin-top: 0.25rem;
+}
+
+.comentario {
+  margin-top: 0.4rem;
+  font-style: italic;
+}
+
+.sin-comentario {
+  margin-top: 0.4rem;
+  color: var(--color-texto-secundario);
+  font-size: 0.85rem;
+}
+
+.tag-nuevo {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background-color: var(--color-acento);
+  color: #141414;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 0.15rem 0.5rem;
+  border-radius: 3px;
+}
+
+.lista-rutinas {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.lista-rutinas li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--color-borde);
+  gap: 1rem;
 }

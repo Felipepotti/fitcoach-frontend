@@ -4,7 +4,10 @@
       <span class="eyebrow">Panel de alumno</span>
       <h1>{{ nombreUsuario }}</h1>
     </div>
-    <button class="btn-secundario" (click)="cerrarSesion()">Cerrar sesión</button>
+    <div class="acciones-header">
+      <a routerLink="/alumno/datos-fisicos" class="btn-secundario">Mis datos físicos</a>
+      <button class="btn-secundario" (click)="cerrarSesion()">Cerrar sesión</button>
+    </div>
   </header>
 
   <section class="seccion">
@@ -12,8 +15,13 @@
 
     <p class="texto-muted" *ngIf="cargando">Cargando rutinas...</p>
 
-    <article *ngFor="let rutina of rutinas" class="rutina">
-      <h3>{{ rutina.nombre_rutina }}</h3>
+    <article *ngFor="let rutina of rutinas" class="rutina" [class.inactiva]="!rutina.activa">
+      <div class="rutina-titulo">
+        <h3>{{ rutina.nombre_rutina }}</h3>
+        <span class="estado-badge" [class.activo]="rutina.activa">
+          {{ rutina.activa ? 'Activa' : 'Pausada' }}
+        </span>
+      </div>
 
       <ul class="lista-ejercicios">
         <li *ngFor="let ejercicio of rutina.ejercicios">
@@ -23,21 +31,46 @@
         </li>
       </ul>
 
-      <div class="registrar">
+      <div class="registrar" *ngIf="rutina.activa">
         <input
           type="text"
           placeholder="¿Cómo te fue? (opcional)"
           [(ngModel)]="comentarios[rutina.id]"
           [name]="'comentario_' + rutina.id"
+          maxlength="300"
         />
         <button class="btn-primario" (click)="marcarCompletada(rutina.id)">Completar</button>
       </div>
+      <p class="texto-muted" *ngIf="!rutina.activa">Esta rutina está pausada por tu entrenador.</p>
+
       <p class="confirmacion" *ngIf="mensajeExito[rutina.id]">{{ mensajeExito[rutina.id] }}</p>
     </article>
 
     <p class="texto-muted" *ngIf="!cargando && rutinas.length === 0">
       Aún no tienes rutinas asignadas. Tu entrenador te avisará cuando publique la primera.
     </p>
+  </section>
+
+  <section class="seccion">
+    <h2>Frecuencia de entrenamiento</h2>
+    <app-grafico-barras
+      [etiquetas]="etiquetasSemanas"
+      [valores]="entrenamientosPorSemana"
+      etiquetaSerie="Entrenamientos"
+    ></app-grafico-barras>
+  </section>
+
+  <section class="seccion" *ngIf="valoresPeso.length > 0">
+    <h2>Evolución de peso</h2>
+    <app-grafico-barras
+      [etiquetas]="etiquetasPeso"
+      [valores]="valoresPeso"
+      etiquetaSerie="Peso (kg)"
+    ></app-grafico-barras>
+  </section>
+  <section class="seccion" *ngIf="valoresPeso.length === 0">
+    <h2>Evolución de peso</h2>
+    <p class="texto-muted">Aún no registras datos físicos. <a routerLink="/alumno/datos-fisicos">Agrégalos aquí</a>.</p>
   </section>
 
   <section class="seccion">

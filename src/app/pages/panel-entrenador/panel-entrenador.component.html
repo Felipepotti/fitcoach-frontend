@@ -12,20 +12,91 @@
   </div>
 
   <section class="seccion">
-    <h2>Alumnos</h2>
+    <h2>Vincular alumno</h2>
+    <div class="vincular-form">
+      <input
+        type="email"
+        placeholder="Email del alumno ya registrado"
+        [(ngModel)]="emailAVincular"
+        name="emailAVincular"
+        maxlength="120"
+      />
+      <button class="btn-secundario" (click)="vincularAlumno()" [disabled]="vinculando">
+        {{ vinculando ? 'Vinculando...' : 'Vincular' }}
+      </button>
+    </div>
+    <p class="confirmacion" *ngIf="mensajeVinculacion">{{ mensajeVinculacion }}</p>
+    <p class="error" *ngIf="errorVinculacion">{{ errorVinculacion }}</p>
+  </section>
+
+  <section class="seccion">
+    <h2>Mis alumnos</h2>
 
     <p class="texto-muted" *ngIf="cargando">Cargando alumnos...</p>
     <p class="error" *ngIf="errorMensaje">{{ errorMensaje }}</p>
 
     <ul class="lista-alumnos" *ngIf="!cargando && alumnos.length > 0">
       <li *ngFor="let alumno of alumnos">
-        <span class="nombre">{{ alumno.nombre }}</span>
-        <span class="email">{{ alumno.email }}</span>
+        <div>
+          <span class="nombre">{{ alumno.nombre }}</span>
+          <span class="email">{{ alumno.email }}</span>
+          <span class="estado-badge" [class.activo]="alumno.activo">
+            {{ alumno.activo ? 'Activo' : 'Inactivo' }}
+          </span>
+        </div>
+        <button class="btn-secundario" (click)="toggleEstadoAlumno(alumno.id)">
+          {{ alumno.activo ? 'Marcar inactivo' : 'Reactivar' }}
+        </button>
       </li>
     </ul>
 
     <p class="texto-muted" *ngIf="!cargando && alumnos.length === 0">
-      Aún no tienes alumnos registrados.
+      Aún no tienes alumnos vinculados. Pídele su email y agrégalo arriba.
     </p>
+  </section>
+
+  <section class="seccion">
+    <div class="seccion-header">
+      <h2>Comentarios recientes</h2>
+      <div class="badge-nuevos" *ngIf="nuevosCount > 0">
+        <span>{{ nuevosCount }} nuevo(s)</span>
+        <button class="btn-link" (click)="marcarTodoLeido()">Marcar como leído</button>
+      </div>
+    </div>
+
+    <ul class="feedback-lista" *ngIf="feedback.length > 0">
+      <li *ngFor="let item of feedback" [class.nuevo]="esNuevo(item.id)">
+        <span class="tag-nuevo" *ngIf="esNuevo(item.id)">Nuevo</span>
+        <div class="feedback-top">
+          <strong>{{ item.nombre_alumno }}</strong>
+          <span class="fecha">{{ item.fecha_completado | date: 'd MMM, HH:mm' }}</span>
+        </div>
+        <p class="rutina-nombre">{{ item.nombre_rutina }}</p>
+        <p class="comentario" *ngIf="item.comentario">"{{ item.comentario }}"</p>
+        <p class="sin-comentario" *ngIf="!item.comentario">Completó la rutina sin dejar comentario.</p>
+      </li>
+    </ul>
+
+    <p class="texto-muted" *ngIf="feedback.length === 0">Aún no hay progreso registrado por tus alumnos.</p>
+  </section>
+
+  <section class="seccion">
+    <h2>Rutinas asignadas</h2>
+
+    <ul class="lista-rutinas" *ngIf="rutinas.length > 0">
+      <li *ngFor="let rutina of rutinas">
+        <div>
+          <strong>{{ rutina.nombre_rutina }}</strong>
+          <span class="estado-badge" [class.activo]="rutina.activa">
+            {{ rutina.activa ? 'Activa' : 'Pausada' }}
+          </span>
+        </div>
+        <button class="btn-secundario" (click)="toggleEstadoRutina(rutina.id)">
+          {{ rutina.activa ? 'Pausar' : 'Reactivar' }}
+        </button>
+      </li>
+    </ul>
+
+    <p class="texto-muted" *ngIf="rutinas.length === 0">Aún no has asignado rutinas.</p>
   </section>
 </div>

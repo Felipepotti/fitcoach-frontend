@@ -12,7 +12,7 @@
     </select>
 
     <label>Nombre de la rutina</label>
-    <input type="text" [(ngModel)]="nombreRutina" name="nombreRutina" required />
+    <input type="text" [(ngModel)]="nombreRutina" name="nombreRutina" required maxlength="80" />
 
     <h3>Ejercicios</h3>
 
@@ -25,24 +25,24 @@
       </div>
 
       <input type="text" placeholder="Nombre del ejercicio" [(ngModel)]="ejercicio.nombre_ejercicio"
-             [name]="'nombre_' + i" required />
+             [name]="'nombre_' + i" required maxlength="50" />
 
       <input type="text" placeholder="Grupo muscular" [(ngModel)]="ejercicio.grupo_muscular"
-             [name]="'grupo_' + i" required />
+             [name]="'grupo_' + i" required maxlength="80" />
 
       <div class="fila">
         <label>Series
-          <input type="number" [(ngModel)]="ejercicio.series" [name]="'series_' + i" min="1" required />
+          <input type="number" [(ngModel)]="ejercicio.series" [name]="'series_' + i" min="1" max="50" required />
         </label>
         <label>Repeticiones
-          <input type="number" [(ngModel)]="ejercicio.repeticiones" [name]="'repeticiones_' + i" min="1" required />
+          <input type="number" [(ngModel)]="ejercicio.repeticiones" [name]="'repeticiones_' + i" min="1" max="200" required />
         </label>
         <label>Descanso (seg)
-          <input type="number" [(ngModel)]="ejercicio.descanso_segundos" [name]="'descanso_' + i" min="0" required />
+          <input type="number" [(ngModel)]="ejercicio.descanso_segundos" [name]="'descanso_' + i" min="0" max="3600" required />
         </label>
       </div>
 
-      <textarea placeholder="Notas (opcional)" [(ngModel)]="ejercicio.notas" [name]="'notas_' + i"></textarea>
+      <textarea placeholder="Notas (opcional)" [(ngModel)]="ejercicio.notas" [name]="'notas_' + i" maxlength="300"></textarea>
     </div>
 
     <button type="button" class="btn-secundario" (click)="agregarEjercicio()">+ Agregar ejercicio</button>

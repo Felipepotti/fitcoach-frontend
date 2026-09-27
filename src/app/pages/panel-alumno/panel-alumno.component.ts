@@ -5,23 +5,31 @@ import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../../services/auth.service';
 import { ProgresoService, Progreso } from '../../services/progreso.service';
 import { Router } from '@angular/router';
+import { GraficoBarrasComponent } from '../../components/grafico-barras/grafico-barras.component';
+import { RouterLink } from '@angular/router';
+import { PerfilService } from '../../services/perfil.service';
 
 interface Rutina {
   id: string;
   nombre_rutina: string;
   ejercicios: any[];
+  activa: boolean;
 }
 
 @Component({
   selector: 'app-panel-alumno',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, GraficoBarrasComponent, RouterLink],
   templateUrl: './panel-alumno.component.html',
   styleUrl: './panel-alumno.component.css',
 })
 export class PanelAlumnoComponent implements OnInit {
   rutinas: Rutina[] = [];
   historial: Progreso[] = [];
+  etiquetasSemanas: string[] = [];
+  entrenamientosPorSemana: number[] = [];
+  etiquetasPeso: string[] = [];
+  valoresPeso: number[] = [];
   nombreUsuario = '';
   cargando = true;
 
@@ -32,6 +40,7 @@ export class PanelAlumnoComponent implements OnInit {
     private http: HttpClient,
     private authService: AuthService,
     private progresoService: ProgresoService,
+    private perfilService: PerfilService,
     private router: Router
   ) {}
 
@@ -39,6 +48,8 @@ export class PanelAlumnoComponent implements OnInit {
     this.nombreUsuario = localStorage.getItem('nombre') || '';
     this.cargarRutinas();
     this.cargarHistorial();
+    this.cargarResumenSemanal();
+    this.cargarHistorialPeso();
   }
 
   cargarRutinas(): void {
@@ -70,7 +81,7 @@ export class PanelAlumnoComponent implements OnInit {
         next: () => {
           this.mensajeExito[rutinaId] = '¡Registrado!';
           this.comentarios[rutinaId] = '';
-          this.cargarHistorial(); // refresca el historial automáticamente
+          this.cargarHistorial();
           setTimeout(() => (this.mensajeExito[rutinaId] = ''), 2000);
         },
         error: () => {
@@ -78,6 +89,28 @@ export class PanelAlumnoComponent implements OnInit {
         },
       });
   }
+
+  cargarResumenSemanal(): void {
+    this.progresoService.obtenerResumenSemanal().subscribe({
+      next: (respuesta) => {
+        this.etiquetasSemanas = respuesta.map((r) => 'Sem ' + r.semana.split('-')[1]);
+        this.entrenamientosPorSemana = respuesta.map((r) => r.entrenamientos);
+      },
+      error: () => {},
+    });
+  }
+
+  cargarHistorialPeso(): void {
+    this.perfilService.obtenerHistorialPeso().subscribe({
+      next: (respuesta) => {
+        this.etiquetasPeso = respuesta.map((r) =>
+        new Date(r.fecha).toLocaleDateString('es-CL', { day: '2-digit', month: 'short' })
+      );
+      this.valoresPeso = respuesta.map((r) => r.peso_kg);
+    },
+    error: () => {},
+  });
+}
 
   cerrarSesion(): void {
     this.authService.logout();

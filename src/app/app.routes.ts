@@ -6,6 +6,7 @@ import { PanelEntrenadorComponent } from './pages/panel-entrenador/panel-entrena
 import { PanelAlumnoComponent } from './pages/panel-alumno/panel-alumno.component';
 import { authGuard } from './guards/auth.guard';
 import { CrearRutinaComponent } from './pages/crear-rutina/crear-rutina.component';
+import { DatosFisicosComponent } from './pages/datos-fisicos/datos-fisicos.component';
 
 export const routes: Routes = [
   { path: '', component: InicioComponent },
@@ -22,6 +23,12 @@ export const routes: Routes = [
     component: PanelAlumnoComponent,
     canActivate: [authGuard],
     data: { rol: 'alumno' },
+  },
+  {
+  path: 'alumno/datos-fisicos',
+  component: DatosFisicosComponent,
+  canActivate: [authGuard],
+  data: { rol: 'alumno' },
   },
   {
   path: 'entrenador/crear-rutina',

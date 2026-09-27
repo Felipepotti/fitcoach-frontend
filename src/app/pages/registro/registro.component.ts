@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { extraerMensajeError } from '../../utils/error-utils';
 
 @Component({
   selector: 'app-registro',
@@ -32,7 +33,7 @@ export class RegistroComponent {
           this.router.navigate(['/login']);
         },
         error: (err) => {
-          this.errorMensaje = err.error?.detail || 'Error al registrarse';
+          this.errorMensaje = extraerMensajeError(err);
         },
       });
   }

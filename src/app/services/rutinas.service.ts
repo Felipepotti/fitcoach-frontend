@@ -23,6 +23,7 @@ export interface RutinaCrear {
 export interface Rutina extends RutinaCrear {
   id: string;
   entrenador_id: string;
+  activa: boolean;
 }
 
 @Injectable({
@@ -47,5 +48,19 @@ export class RutinasService {
     return this.http.get<Rutina[]>(`${API_URL}/rutinas/mis-rutinas`, {
       headers: this.obtenerHeaders(),
     });
+  }
+
+  obtenerRutinasDeMisAlumnos(): Observable<Rutina[]> {
+    return this.http.get<Rutina[]>(`${API_URL}/rutinas/mis-asignaciones`, {
+      headers: this.obtenerHeaders(),
+    });
+  }
+
+  cambiarEstado(rutinaId: string): Observable<Rutina> {
+    return this.http.patch<Rutina>(
+      `${API_URL}/rutinas/${rutinaId}/estado`,
+      {},
+      { headers: this.obtenerHeaders() }
+    );
   }
 }

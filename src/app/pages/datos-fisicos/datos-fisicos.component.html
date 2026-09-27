@@ -1,0 +1,46 @@
+<div class="form-container">
+  <span class="eyebrow">Tu perfil</span>
+  <h2>Datos físicos</h2>
+
+  <p class="texto-muted" *ngIf="cargando">Cargando...</p>
+
+  <form (ngSubmit)="onSubmit()" *ngIf="!cargando">
+    <div class="fila">
+      <label>Peso (kg)
+        <input type="number" [(ngModel)]="datos.peso_kg" name="peso_kg" step="0.1" min="1" max="400" required />
+      </label>
+      <label>Altura (cm)
+        <input type="number" [(ngModel)]="datos.altura_cm" name="altura_cm" min="1" max="250" required />
+      </label>
+    </div>
+
+    <div class="fila">
+      <label>Edad
+        <input type="number" [(ngModel)]="datos.edad" name="edad" min="1" max="120" required />
+      </label>
+      <label>Sexo
+        <select [(ngModel)]="datos.sexo" name="sexo">
+          <option value="masculino">Masculino</option>
+          <option value="femenino">Femenino</option>
+          <option value="otro">Otro</option>
+        </select>
+      </label>
+    </div>
+
+    <label>Objetivo</label>
+    <select [(ngModel)]="datos.objetivo" name="objetivo">
+      <option value="bajar_peso">Bajar de peso</option>
+      <option value="subir_masa">Subir masa muscular</option>
+      <option value="mantener">Mantener</option>
+    </select>
+
+    <p class="error" *ngIf="errorMensaje">{{ errorMensaje }}</p>
+    <p class="exito" *ngIf="exitoMensaje">{{ exitoMensaje }}</p>
+
+    <button type="submit" class="btn-primario" [disabled]="guardando">
+      {{ guardando ? 'Guardando...' : 'Guardar datos' }}
+    </button>
+  </form>
+
+  <a routerLink="/alumno" class="volver">← Volver a mi panel</a>
+</div>

@@ -17,6 +17,21 @@ export interface Progreso extends ProgresoRegistrar {
   fecha_completado: string;
 }
 
+export interface ProgresoEntrenador {
+  id: string;
+  alumno_id: string;
+  nombre_alumno: string;
+  rutina_id: string;
+  nombre_rutina: string;
+  fecha_completado: string;
+  comentario?: string;
+}
+
+export interface ResumenSemana {
+  semana: string;
+  entrenamientos: number;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -37,6 +52,18 @@ export class ProgresoService {
 
   obtenerMiHistorial(): Observable<Progreso[]> {
     return this.http.get<Progreso[]>(`${API_URL}/progreso/mi-historial`, {
+      headers: this.obtenerHeaders(),
+    });
+  }
+
+  obtenerResumenSemanal(): Observable<ResumenSemana[]> {
+  return this.http.get<ResumenSemana[]>(`${API_URL}/progreso/resumen-semanal`, {
+    headers: this.obtenerHeaders(),
+  });
+}
+
+  obtenerFeedbackAlumnos(): Observable<ProgresoEntrenador[]> {
+    return this.http.get<ProgresoEntrenador[]>(`${API_URL}/progreso/mis-alumnos`, {
       headers: this.obtenerHeaders(),
     });
   }
